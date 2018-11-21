@@ -6,11 +6,17 @@
 </head>
 <body>
 <div ng-controller="HelloCtrl">
+
     <p>{{name+1}}</p>
     <p>{{add(2,3)}}</p>
     <login-panel></login-panel>
 </div>
-
+<div ng-controller="helloCtroller">
+    <p>{{user.userName}}</p>
+</div>
+<div zfpx-color>
+    hello
+</div>
 </body>
 <script src="lib/angular/angular.js"></script>
 <script>
@@ -34,13 +40,44 @@
 
         return{
             //连接函数
-            link:function(){
+            link:function(scope,element,attrs){
 
             },
             //模板
             template:'用户名:<input type="text" name="userName"/><button>登录</button>'
         }
     });
+
+    angular.module('helloAngular').directive('zfpxColor',function(){
+
+        return{
+            //连接函数
+            link:function(scope,element,attrs){
+                element.css('color','red');
+                element.on('click',function(){
+                    alert(element.html());
+                });
+            }
+            //模板
+            //template:'用户名:<input type="text" name="userName"/><button>登录</button>'
+        }
+    });
+
+
+    angular.module('helloAngular').controller('helloCtroller',function($scope,$http){
+        $http({
+            method:'get',
+            url:'./users.json'
+        }).then(function successBack(response){
+
+            $scope.user=response.data;
+            alert(response.data.userName);
+        },function errorBack(response){
+
+        })
+
+    });
+
 
 
 
