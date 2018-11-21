@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+<body>
+<div ng-controller="HelloCtrl">
+    <p>{{name+1}}</p>
+    <p>{{add(2,3)}}</p>
+    <login-panel></login-panel>
+</div>
+
+</body>
+<script src="lib/angular/angular.js"></script>
+<script>
+    //表示定义一个模块
+    angular.module('helloAngular',[]);
+    //获取定义模块
+    //当定义一个控制器后 就会送一个$scpoe={}对象；
+    angular.module('helloAngular').controller("HelloCtrl",function($scope) {
+
+        var user={
+            name:'hahah'
+        };
+        $scope.name="zfpx";
+        $scope.add=function(a,b){
+            return a+b
+        }
+
+    });
+
+    angular.module('helloAngular').directive('loginPanel',function(){
+
+        return{
+            //连接函数
+            link:function(){
+
+            },
+            //模板
+            template:'用户名:<input type="text" name="userName"/><button>登录</button>'
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
