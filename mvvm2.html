@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+<body>
+<div ng-controller="HelloCtrl">
+    <!--//uppercase  lowercase是过滤器 不会修改原来的值-->
+    <p>{{name|uppercase}}{{'ASDsssF'|lowercase}}</p>
+    <input type="text" ng-model="name"/>
+</div>
+
+</body>
+<script src="lib/angular/angular.js"></script>
+<script>
+    //表示定义一个模块
+    angular.module('helloAngular',[]);
+    //获取定义模块
+    //当定义一个控制器后 就会送一个$scpoe={}对象；
+
+
+    //实现数据的双向绑定ng-model；
+    angular.module('helloAngular').controller("HelloCtrl",function($scope,$http,$timeout) {
+
+        var user={
+            name:'hahah'
+        };
+        $scope.name=user.name;
+
+        $timeout(function(){
+            $scope.name="wowowo";
+        },2000)
+
+    });
+
+    //过滤器
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
