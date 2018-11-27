@@ -5,12 +5,20 @@
     <title>Angular</title>
 </head>
 <body>
-<div ng-controller="HelloCtrl">
-    <!--//uppercase  lowercase是过滤器 不会修改原来的值-->
-    <p>{{name|uppercase}}{{'ASDsssF'|lowercase}}</p>
-    <input type="text" ng-model="name"/>
-</div>
+<!--<div ng-controller="HelloCtrl">-->
+    <!--&lt;!&ndash;//uppercase  lowercase是过滤器 不会修改原来的值&ndash;&gt;-->
+    <!--<p>{{name|uppercase}}{{'ASDsssF'|lowercase}}</p>-->
+    <!--<input type="text" ng-model="name"/>-->
+<!--</div>-->
+<!--<div ng-controller="Ctrl">-->
+    <!--<div ng-controller="Ctrl">-->
 
+    <!--</div>-->
+<!--</div>-->
+<div ng-controller="wCtrl">
+<p>{{name}}</p>
+<input type="text" ng-model="name"/>
+</div>
 </body>
 <script src="lib/angular/angular.js"></script>
 <script>
@@ -34,7 +42,20 @@
 
     });
 
-    //过滤器
+    angular.module('helloAngular').controller("Ctrl",function($scope,$http,$timeout) {
+
+       console.log($scope);
+
+    });
+
+    angular.module('helloAngular').controller("wCtrl",function($scope,$http,$timeout) {
+
+        $scope.$watch('name',function(newValue,oldValue){
+            console.log(oldValue,newValue)
+        });
+
+    });
+
 
 
 
