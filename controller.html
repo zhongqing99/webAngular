@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="./bootstarp/css/bootstrap.css"/>
+</head>
+<body class="container" ng-controller="wCtrl">
+ <girl beautiful clever></girl>
+<girl kind="beautiful,clever"></girl>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script>
+    //表示定义一个模块
+    angular.module('helloAngular',[]);
+
+    angular.module('helloAngular').controller("wCtrl",function($scope,$http,$timeout) {
+
+
+    });
+
+    angular.module('helloAngular').directive('girl',function(){
+        return{
+            restrict:'E',
+            scope:true,
+            //controller方法里面的参数是服务 必须加$
+            //控制器里面不能操作元素 例如加事件 就得在link函数里面通过element操作
+            controller:function($scope,$element,$attrs){
+                $scope.kinds=[];
+                this.add=function(kind){
+                    $scope.kinds.push(kind);
+                }
+            },
+            template:'<h1>默默</h1>{{kinds}}',
+            //link用来将指令隔离开来，controller用来定义可以复用的行为和可以提供给别的指令调用方法
+            //link方法里面的参数是形参  可以不加$符号
+            link:function(scope,element,attrs){
+                element.bind('click',function(){
+                    alert(scope.kinds);
+                });
+            }
+        }
+    });
+    angular.module('helloAngular').directive('beautiful',function(){
+        return{
+            require:'girl',
+            link:function(scope,element,attrs,girlCtrl){
+                girlCtrl.add("beautiful");
+            }
+        }
+    });
+    angular.module('helloAngular').directive('clever',function(){
+        return{
+            require:'girl',
+            link:function(scope,element,attrs,girlCtrl){
+                girlCtrl.add("clever");
+            }
+        }
+    });
+
+
+    angular.module('helloAngular').directive('kind',function(){
+        return{
+            require:'girl',
+            link:function(scope,element,attrs,girlCtrl){
+              attrs.kind.split(',').forEach(function(kind){
+                  girlCtrl.add(kind);
+              });
+
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

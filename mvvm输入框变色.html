@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="./bootstarp/css/bootstrap.css"/>
+</head>
+<body>
+<div ng-include="'header.html'"></div>
+<dialog class="container">
+    <div>这是我们内部的内容</div>
+</dialog>
+<div ng-controller="zfpxControl" class="container">
+    <ul class="nav nav-tabs">
+        <li ng-repeat="menu in menus" ng-click="click(menu.name)" role="presentation"
+                ng-class="{active:selectedMenu==menu.name}">
+            <a href="#">{{menu.name}}</a>
+        </li>
+    </ul>
+</div>
+<div class="container">
+    <student></student>
+    <span class="student"></span>
+    <span student></span>
+    <!--directive:student -->
+</div>
+<div class="container">
+    <form class="form-group">
+        <div  ng-class="{'has-error':userName.length<=3,'has-success':userName>6,'has-waring':userName.length<=3}">
+            <label class="control-label" for="userName">用户名</label>
+            <input id="userName" class="form-control" type="text" ng-model="userName" >
+        </div>
+    </form>
+</div>
+<div class="container" ng-controller="wCtrl">
+    条件:<input ng-model="xxxx" type="text" class="form-control">
+    <ul>
+        <li ng-repeat="phone in phones|filter:xxxx">{{phone.age}}</li>
+    </ul>
+</div>
+
+<div class="container" >
+    {{"13000000000"|date:'yy-m-d h:mm:ss a'}}<br/>
+    <input type="text" ng-model="xx"/>
+    当前时间:<span zf-current-time="xx"></span>
+</div>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script>
+    //表示定义一个模块
+    angular.module('helloAngular',[]);
+
+    angular.module('helloAngular').controller("wCtrl",function($scope,$http,$timeout) {
+
+        $scope.phones=[
+            {name:"小明",age:1234},
+            {name:"大熊",age:5678},
+            {name:"小猫",age:12345678}
+        ];
+
+    });
+
+    angular.module('helloAngular').directive('student',function(){
+        return{
+            /**
+             * A attribute 属性
+             * E element 元素
+             * M comment 注释
+             * C class类名
+             */
+            restrict:'AEM',
+            replace:true,//会把指令本身替换掉
+            template:'<div>哈哈哈哈哈哈</div>'
+        }
+    });
+
+    angular.module('helloAngular').directive('dialog',function(){
+        return{
+            /**
+             * A attribute 属性
+             * E element 元素
+             * M comment 注释
+             * C class类名
+             */
+            restrict:'AEM',
+            //保留原来指令的内部元素,自动插入到转换后的模板内部具有ng-transclude的指令元素内部(配合ng-transclude使用)
+            transclude:true,
+            replace:true,//会把指令本身替换掉
+            template:'<div class="panel panel-default"><div class="panel-heading">头部</div><div class="panel-body" ng-transclude ></div></div></div>'
+        }
+    });
+
+    angular.module("helloAngular").controller("zfpxControl",function($scope){
+        $scope.selectedMenu='Home';
+        $scope.menus=[
+            {name:'Home'},
+            {name:'Profile'},
+            {name:'Message'}
+        ];
+
+        $scope.click=function(name){
+            $scope.selectedMenu=name;
+        }
+    });
+
+
+    angular.module("helloAngular").directive('zfCurrentTime',function($interval,dateFilter){
+      return{
+          link:function(scope,element,attrs){
+              function updateTime(){
+                  element.html(dateFilter(new Date(),scope[attrs['zfCurrentTime']]));
+              }
+
+              var timeoutId=$interval(function(){
+                  updateTime();
+              },1000);
+
+              scope.on('$destroy',function(){
+                  $interval.cancel(timeoutId);
+              })
+          }
+      }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
