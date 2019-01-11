@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="bookMod">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body >
+<div class="container" ng-init="users=[{name:'q3qwer',age:2},{name:'5wsxc',age:5},{name:'2cdeav',age:9},{name:'23edf',age:10}]">
+
+   <div>
+       {{9.9999|currency}}
+       {{"8.33333"|number}}
+   </div>
+    姓名：<input ng-model="search.name">
+    年龄：<input ng-model="search.$">
+    <button ng-click="order='age'">升序</button>
+    <button ng-click="order='-age'">降序</button>
+    <!-- $是指过滤所有 search.name指只是过滤name-->
+    <table class="table table-bordered">
+        <tr ng-repeat="user in users|orderBy:order|filter:search">
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
+
+<script src="angular.js"></script>
+<script>
+    angular.module("bookMod",[]);
+
+</script>

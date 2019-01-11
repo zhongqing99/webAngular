@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="./bootstarp/css/bootstrap.css"/>
+</head>
+<body class="container" ng-controller="wCtrl">
+<form action="" name="userform" novalidate="novalidate">
+    <div class="form-group" ng-class="{'has-error':userform.$error.email.$invalid&&userform.$error.email.$dirty}">
+        <label for="email" class="control-label">邮箱</label>
+        <input type="text" class="form-control" id="email" ng-model="eamil"/>
+    </div>
+    <div class="form-group">
+        <input type="button" class=" btn btn-default" value="提交"/>
+    </div>
+</form>
+<pre>
+    {{userform|json}}
+    {{name|json}}
+</pre>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script>
+    //表示定义一个模块
+    angular.module('helloAngular',[]);
+
+    angular.module('helloAngular').controller("wCtrl",function($scope,$http,$timeout) {
+
+        $scope.name={};
+        $scope.user={};
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

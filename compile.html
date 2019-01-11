@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="./bootstarp/css/bootstrap.css"/>
+</head>
+<body class="container" ng-controller="wCtrl">
+<div times="4">
+    <span>{{word}}</span>
+</div>
+</body>
+<script src="lib/angular/angular.js"></script>
+<script>
+    //表示定义一个模块
+    angular.module('helloAngular',[]);
+
+    angular.module('helloAngular').controller("wCtrl",function($scope,$http,$timeout) {
+
+
+    });
+
+    angular.module('helloAngular').directive('times',function(){
+        return{
+//            template:'<div ng-translate></div>',
+//            replace:true,
+            restrict:'A',
+            //编译函数，对DOM模板进行编译，template替换之后，
+            //scope连接link函数前执行
+            compile:function(element,attrs){
+                console.log('开始compile连接函数');
+                var tpl=element.children();
+                for(var i=0;i<attrs.times-1;i++){
+                    element.append(tpl.clone());
+                }
+                return function(scope,element,attrs){
+                   scope.word='hello';
+                    console.log('compile连接函数')
+                }
+            },
+            link:function(){
+                console.log('连接函数')
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

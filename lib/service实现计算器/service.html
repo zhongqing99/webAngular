@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="helloAngular">
+<head lang="en" >
+    <meta charset="UTF-8">
+
+    <title>Angular</title>
+    <link rel="stylesheet" href="../../bootstarp/css/bootstrap.css"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="row" ng-controller="zfpxControl as vm">
+        <div class="col-xs-4 col-xs-offset-4">
+           <input type="text" class="form-control" ng-model="vm.a">
+            <select name="" id="" ng-model="vm.operate" class="form-control">
+                <options>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </options>
+            </select>
+            <input type="text" ng-model="vm.b" class="form-control">
+            <button class="btn btn-primary" ng-click="vm.local()">=</button>
+        <div ng-bind="vm.result"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../../lib/angular/angular.js"></script>
+<script>
+    angular.module('helloAngular',[]);
+    angular.module("helloAngular").provider("Claculator",function(){
+        this.$get=function(){
+            var priceX="$";
+            this.setPricex=function(p){
+                priceX=p;
+            };
+            return{
+                '+':function(a,b){return priceX+(parseInt(a)+parseInt(b))},
+                '-':function(a,b){return priceX+(parseInt(a)-parseInt(b))},
+                '*':function(a,b){return priceX+(parseInt(a)*parseInt(b))},
+                '/':function(a,b){return priceX+(parseInt(a)/parseInt(b))}
+            }
+        }
+    });
+    angular.module('helloAngular').config(function(ClaculatorProvider){
+        ClaculatorProvider.setPricex("¥");
+    });
+
+    angular.module('helloAngular').controller('zfpxControl',function(zfClaculator){
+        var vm=this;
+        vm.local=function(){
+            vm.result=zfClaculator[vm.operate](vm.a,vm.b);
+        }
+
+    });
+
+</script>
+</html>

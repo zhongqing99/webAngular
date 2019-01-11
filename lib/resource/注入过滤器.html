@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="bookMod">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body >
+<div ng-controller="zCtrl" class="container">
+    <div class="row">
+        {{total}}
+    </div>
+</div>
+</body>
+</html>
+
+<script src="angular.js"></script>
+<script>
+    angular.module("bookMod",[]);
+    angular.module("bookMod").controller("zCtrl",function($scope,numberFilter,currencyFilter){
+
+        $scope.total=currencyFilter(numberFilter("822.93339",1),"美元");//其中第二参数表示保留几位小数
+
+    });
+</script>
